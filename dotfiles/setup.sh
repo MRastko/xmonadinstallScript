@@ -64,7 +64,7 @@ function windowManager{
   echo " ${arrow} Do you want to install Xmonad Window Manager with Xmobar? (yes/no)"
   read INSTALL_WM
 
-   if[[ $INSTALL_WM == "yes" || ${INSTALL_WM} == "y" ]]; then
+  if[[ $INSTALL_WM == "yes" || ${INSTALL_WM} == "y" ]]; then
      echo "${bold}Starting installation and copying dotfiles..${normal}"
     /usr/bin/yay -S xmonad xmonad-contrib xmobar
   else
