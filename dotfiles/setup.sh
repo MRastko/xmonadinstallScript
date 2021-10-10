@@ -31,22 +31,14 @@ function install() {
 
   if [[ $UITITY_INSTALLATION == "yes" || $UITITY_INSTALLATION = "y" ]]; then
     echo "${arrow} Installing utility apps.."
-
-     /usr/bin/yay -S xorg python pulseaudio pulseaudio-alsa pulseaudio-bluetooth alsa-utils nitrogen dmenu rofi xfce4-power-manager wireless_tools git flameshot volumeicon network-manager network-manager-applet iwd parcellite neofetch htop picom-git playerctl xsettingsd  nerd-fonts-complete
+     /usr/bin/yay -S xorg python pulseaudio pulseaudio-alsa pulseaudio-bluetooth alsa-utils nitrogen dmenu rofi xfce4-power-manager wireless_tools git flameshot volumeicon network-manager network-manager-applet iwd parcellite neofetch htop picom-git playerctl xsettingsd nerd-fonts-complete lightdm lightdm-gtk-greeter
   else
     echo "${arrow} You chose: ${UITITY_INSTALLATION}"
   fi
 
   rsync -avxRHAXP --dry-run .config/picom ~/
   
-  echo "${arrow} Would you like to install window manager and setup the dotfiles? (yes/no)"
-  read INSTALL_WM
-
-  if [[ $INSTALL_WM == "yes" || $INSTALL_WM == "y" ]]; then
-    windowManager
-  else
-    echo "${arrow} You chose: ${INSTALL_WM}"
-  fi
+  sudo systemctl enable lightdm
 
   echo "${arrow} Would you like to install terminal emulator and setup the dotfiles? (yes/no)"
   read INSTALL_TE
@@ -56,10 +48,20 @@ function install() {
   else
     echo "${arrow} You chose: ${INSTALL_WM}"
   fi
+
+  echo "${arrow} Would you like to install window manager and setup the dotfiles? (yes/no)"
+  read INSTALL_WM
+
+  if [[ $INSTALL_WM == "yes" || $INSTALL_WM == "y" ]]; then
+    windowManager
+  else
+    echo "${arrow} You chose: ${INSTALL_WM}"
+  fi
+
 }
 
 
-function windowManager{
+function windowManager {
   
   if [[ $INSTALL_WM == "yes" || ${INSTALL_WM} == "y" ]]; then
     echo "${bold}Starting installation and copying dotfiles..${normal}"
@@ -70,18 +72,17 @@ function windowManager{
 
   rsync -avxRHAXP .xmonad/xmonad.hs .config/xmobar ~/
 
-  echo " Xmonad and Xmobar are installed and all dotfiles are copied."
-
+  echo "${arrow}Xmonad and Xmobar are installed and all dotfiles are copied."
 }
 
 
-function terminalEmulator{
+function terminalEmulator {
   
   echo " ${arrow} Do you want to install Kitty? (yes/no) "
   read INSTALL_TE
 
-  if[[ $INSTALL_TE == "yes" || ${INSTALL_TE} == "y" ]]; then
-     echo "${bold}Starting installation and copying dotfiles..${normal}"
+  if [[ $INSTALL_TE == "yes" || ${INSTALL_TE} == "y" ]]; then
+    echo "${bold}Starting installation and copying dotfiles..${normal}"
     /usr/bin/yay -S kitty
   else
     echo" ${arrow} You chose: ${INSTALL_TE}"
