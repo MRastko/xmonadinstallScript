@@ -36,7 +36,7 @@ function install() {
     echo "${arrow} You chose: ${UITITY_INSTALLATION}"
   fi
 
-  rsync -avxRHAXP --dry-run .config/picom ~/
+  rsync -avxRHAXP .config/picom ~/
   
   sudo systemctl enable lightdm
 
@@ -65,14 +65,14 @@ function windowManager {
   
   if [[ $INSTALL_WM == "yes" || ${INSTALL_WM} == "y" ]]; then
     echo "${bold}Starting installation and copying dotfiles..${normal}"
-    /usr/bin/yay -S xmonad xmonad-contrib xmobar
+    /usr/bin/yay -S xmonad xmonad-contrib polybar
   else
     echo" ${arrow} You chose: ${INSTALL_TE}"
   fi
 
-  rsync -avxRHAXP .xmonad/xmonad.hs .config/xmobar ~/
+  rsync -avxRHAXP .xmonad/xmonad.hs .config/polybar ~/
 
-  echo "${arrow}Xmonad and Xmobar are installed and all dotfiles are copied."
+  echo "${arrow}Xmonad and polybar have been installed and configed."
 }
 
 
