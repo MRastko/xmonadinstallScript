@@ -1,3 +1,4 @@
 # xmonadinstallScript
 
-The setup.sh script is curently not working.
+Installs xmoand and basic utilities 
+setup.sh is working
